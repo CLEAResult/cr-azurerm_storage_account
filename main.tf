@@ -13,3 +13,23 @@ resource "azurerm_storage_account" "storageaccount" {
     InfrastructureAsCode = "True"
   }
 }
+
+resource "azuread_group" "StorageAccountKeyOperatorServiceRole" {
+  name = "g${local.default_rgid}${local.env_id}${local.rg_type}_AZ_AStorageAccountKeyOperatorServiceRole"
+}
+
+resource "azuread_group" "StorageBlobDataContributor" {
+  name = "g${local.default_rgid}${local.env_id}${local.rg_type}_AZ_StorageBlobDataContributor"
+}
+
+resource "azurerm_role_assignment" "StorageAccountKeyOperatorServiceRole" {
+  scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.rg_name}"
+  role_definition_name = "Storage Account Key Operator Service Role"
+  principal_id         = "${azuread_group.StorageAccountKeyOperatorServiceRole.id}"
+}
+
+resource "azurerm_role_assignment" "StorageBlobDataContributor" {
+  scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.rg_name}"
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = "${azuread_group.StorageBlobDataContributor.id}"
+}

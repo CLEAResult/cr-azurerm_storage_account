@@ -50,10 +50,16 @@ variable "access_tier" {
   description = "Valid values are: Cool, Hot"
 }
 
+variable "subscription_id" {
+  description = "Prompt for subscription ID"
+}
+
 # Compute default name values
 locals {
   env_id = "${lookup(module.naming.env-map, var.environment, "ENV")}"
   type   = "${lookup(module.naming.type-map, "azurerm_storage_account", "TYP")}"
+
+  rg_type = "${lookup(module.naming.type-map, "azurerm_resource_group", "TYP")}"
 
   default_rgid        = "${var.rgid != "" ? var.rgid : "NORGID"}"
   default_name_prefix = "c${local.default_rgid}${local.env_id}"
