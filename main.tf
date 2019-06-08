@@ -1,13 +1,19 @@
+# Version constraint required as of 6 June 2019
+# Ref: https://github.com/hashicorp/terraform/issues/21235
+provider "azuread" {
+  version = "= 0.3.1"
+}
+
 resource "azurerm_storage_account" "storageaccount" {
-  name                      = "${local.name}${format("%03d", count.index + 1)}"
-  count                     = "${var.count}"
-  resource_group_name       = "${var.rg_name}"
-  location                  = "${var.location}"
-  enable_https_traffic_only = "${var.enable_https_traffic_only}"
-  account_kind              = "${var.account_kind}"
-  access_tier               = "${var.access_tier}"
-  account_replication_type  = "${var.account_replication_type}"
-  account_tier              = "${var.account_tier}"
+  name                      = format("%s%03d", local.name, count.index + 1)
+  count                     = var.num
+  resource_group_name       = var.rg_name
+  location                  = var.location
+  enable_https_traffic_only = var.enable_https_traffic_only
+  account_kind              = var.account_kind
+  access_tier               = var.access_tier
+  account_replication_type  = var.account_replication_type
+  account_tier              = var.account_tier
 
   tags = {
     InfrastructureAsCode = "True"
@@ -15,21 +21,24 @@ resource "azurerm_storage_account" "storageaccount" {
 }
 
 resource "azuread_group" "StorageAccountKeyOperatorServiceRole" {
-  name = "g${local.default_rgid}${local.env_id}${local.rg_type}_AZ_AStorageAccountKeyOperatorServiceRole"
+  name = format("g%s%s%s_AZ_StorageAccountKeyOperatorServiceRole", local.default_rgid, local.env_id, local.rg_type)
 }
 
 resource "azuread_group" "StorageBlobDataContributor" {
-  name = "g${local.default_rgid}${local.env_id}${local.rg_type}_AZ_StorageBlobDataContributor"
+  name = format("g%s%s%s_AZ_StorageBlobDataContributor", local.default_rgid, local.env_id, local.rg_type)
 }
 
+data "azurerm_subscription" "primary" {}
+
 resource "azurerm_role_assignment" "StorageAccountKeyOperatorServiceRole" {
-  scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.rg_name}"
+  scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
   role_definition_name = "Storage Account Key Operator Service Role"
-  principal_id         = "${azuread_group.StorageAccountKeyOperatorServiceRole.id}"
+  principal_id         = azuread_group.StorageAccountKeyOperatorServiceRole.id
 }
 
 resource "azurerm_role_assignment" "StorageBlobDataContributor" {
-  scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${var.rg_name}"
+  scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = "${azuread_group.StorageBlobDataContributor.id}"
+  principal_id         = azuread_group.StorageBlobDataContributor.id
 }
+
