@@ -9,7 +9,9 @@ resource "azurerm_storage_account" "storageaccount" {
   count                     = var.num
   resource_group_name       = var.rg_name
   location                  = var.location
-  enable_https_traffic_only = var.enable_https_traffic_only
+  enable_https_traffic_only = true
+  enable_blob_encryption    = true
+  enable_file_encryption    = true
   account_kind              = var.account_kind
   access_tier               = var.access_tier
   account_replication_type  = var.account_replication_type

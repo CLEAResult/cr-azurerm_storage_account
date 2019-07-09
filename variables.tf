@@ -41,11 +41,6 @@ variable "account_replication_type" {
   description = "Valid values are: LRS, ZRS, GRS, RAGRS"
 }
 
-variable "enable_https_traffic_only" {
-  default     = "true"
-  description = "Valid values are: true, false"
-}
-
 variable "access_tier" {
   default     = "cool"
   description = "Valid values are: Cool, Hot"
