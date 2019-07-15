@@ -2,6 +2,7 @@
 # Ref: https://github.com/hashicorp/terraform/issues/21235
 provider "azuread" {
   version = "= 0.3.1"
+  use_msi = var.use_msi
 }
 
 resource "azurerm_storage_account" "storageaccount" {

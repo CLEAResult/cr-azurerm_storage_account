@@ -54,6 +54,11 @@ variable "tenant_id" {
   description = "Prompt for tenant ID"
 }
 
+variable "use_msi" {
+  description = "Use Managed Service Identity (MSI)?"
+  default     = false
+}
+
 # Compute default name values
 locals {
   env_id = lookup(module.naming.env-map, var.environment, "env")
