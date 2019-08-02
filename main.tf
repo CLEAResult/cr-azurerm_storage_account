@@ -1,10 +1,3 @@
-# Version constraint required as of 6 June 2019
-# Ref: https://github.com/hashicorp/terraform/issues/21235
-provider "azuread" {
-  version = ">= 0.3.1"
-  use_msi = var.use_msi
-}
-
 resource "azurerm_storage_account" "storageaccount" {
   name                      = format("%s%03d", local.name, count.index + 1)
   count                     = var.num
