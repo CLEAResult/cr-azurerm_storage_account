@@ -24,7 +24,9 @@ resource "azuread_group" "StorageBlobDataContributor" {
   name = format("g%s%s%s_AZ_StorageBlobDataContributor", local.default_rgid, local.env_id, local.rg_type)
 }
 
-data "azurerm_subscription" "primary" {}
+data "azurerm_subscription" "primary" { 
+  subscription_id = var.subscription_id
+}
 
 resource "azurerm_role_assignment" "StorageAccountKeyOperatorServiceRole" {
   scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
