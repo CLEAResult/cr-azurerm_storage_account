@@ -115,9 +115,9 @@ output "secondary_blob_connection_string" {
 }
 
 output "msi_principal_id" {
-  value = azurerm_storage_account.storageaccount[0].identity[0].principal_id
+  value = "${ var.create_msi ? azurerm_storage_account.storageaccount.*.identity.0.principal_id : [""]}"
 }
 
 output "msi_tenant_id" {
-  value = azurerm_storage_account.storageaccount[0].identity[0].tenant_id
+  value = "${ var.create_msi ? azurerm_storage_account.storageaccount.*.identity.0.tenant_id : [""]}"
 }

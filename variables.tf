@@ -84,6 +84,8 @@ locals {
 
   name_prefix = var.name_prefix != "" ? var.name_prefix : local.default_name_prefix
   name        = format("%s%s", local.name_prefix, local.type)
+
+  create_msi  = var.create_msi ? [true] : []
 }
 
 # This module provides a data map output to lookup naming standard references

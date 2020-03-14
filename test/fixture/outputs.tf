@@ -115,10 +115,10 @@ output "secondary_blob_connection_string" {
 }
 
 output "msi_principal_id" {
-  value = module.storage.*.msi_principal_id
+  value = module.storage-msi.*.msi_principal_id
 }
 
 output "msi_tenant_id" {
-  value = module.storage.*.msi_tenant_id
+  value = module.storage-msi.*.msi_tenant_id
 }
 

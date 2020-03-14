@@ -1,7 +1,8 @@
 provider "azurerm" {
-  version         = "1.30.1"
+  version         = "2.1.0"
   subscription_id = var.subscription_id
   tenant_id       = var.tenant_id
+  features {}
 }
 
 resource "random_string" "suffix" {
@@ -24,14 +25,19 @@ module "storage" {
   tenant_id                = var.tenant_id
   rg_name                  = azurerm_resource_group.rg.name
   account_replication_type = "LRS"
-  create_msi               = true
+  create_msi               = false
 }
 
-# Create a container in the new storage account as test validation
-resource "azurerm_storage_container" "test" {
-  name                  = "vhds"
-  resource_group_name   = azurerm_resource_group.rg.name
-  storage_account_name  = basename(module.storage.id[0])
-  container_access_type = "private"
+module "storage-msi" {
+  source                   = "../../"
+  rgid                     = var.rgid
+  environment              = var.environment
+  location                 = var.location
+  subscription_id          = var.subscription_id
+  tenant_id                = var.tenant_id
+  name_prefix              = format("%s2", random_string.suffix.result)
+  rg_name                  = azurerm_resource_group.rg.name
+  account_replication_type = "LRS"
+  create_msi               = true
 }
 
