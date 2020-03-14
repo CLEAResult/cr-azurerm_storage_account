@@ -24,6 +24,7 @@ module "storage" {
   tenant_id                = var.tenant_id
   rg_name                  = azurerm_resource_group.rg.name
   account_replication_type = "LRS"
+  create_msi               = true
 }
 
 # Create a container in the new storage account as test validation
