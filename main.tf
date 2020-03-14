@@ -4,8 +4,6 @@ resource "azurerm_storage_account" "storageaccount" {
   resource_group_name       = var.rg_name
   location                  = var.location
   enable_https_traffic_only = true
-  enable_blob_encryption    = true
-  enable_file_encryption    = true
   account_kind              = var.account_kind
   access_tier               = var.access_tier
   account_replication_type  = var.account_replication_type
@@ -24,7 +22,7 @@ resource "azuread_group" "StorageBlobDataContributor" {
   name = format("g%s%s%s_AZ_StorageBlobDataContributor", local.default_rgid, local.env_id, local.rg_type)
 }
 
-data "azurerm_subscription" "primary" { 
+data "azurerm_subscription" "primary" {
   subscription_id = var.subscription_id
 }
 
