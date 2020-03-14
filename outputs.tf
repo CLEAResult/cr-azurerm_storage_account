@@ -90,3 +90,34 @@ output "primary_web_host" {
   value = azurerm_storage_account.storageaccount.*.primary_web_host
 }
 
+output "primary_access_key" {
+  value = azurerm_storage_account.storageaccount.*.primary_access_key
+}
+
+output "secondary_access_key" {
+  value = azurerm_storage_account.storageaccount.*.secondary_access_key
+}
+
+output "primary_connection_string" {
+  value = azurerm_storage_account.storageaccount.*.primary_connection_string
+}
+
+output "secondary_connection_string" {
+  value = azurerm_storage_account.storageaccount.*.secondary_connection_string
+}
+
+output "primary_blob_connection_string" {
+  value = azurerm_storage_account.storageaccount.*.primary_blob_connection_string
+}
+
+output "secondary_blob_connection_string" {
+  value = azurerm_storage_account.storageaccount.*.secondary_blob_connection_string
+}
+
+output "msi_principal_id" {
+  value = azurerm_storage_account.storageaccount[0].identity[0].principal_id
+}
+
+output "msi_tenant_id" {
+  value = azurerm_storage_account.storageaccount[0].identity[0].tenant_id
+}

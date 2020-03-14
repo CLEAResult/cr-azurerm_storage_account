@@ -9,6 +9,10 @@ resource "azurerm_storage_account" "storageaccount" {
   account_replication_type  = var.account_replication_type
   account_tier              = var.account_tier
 
+  identity {
+    type = var.create_msi ? "SystemAssigned" : null
+  }
+
   tags = {
     InfrastructureAsCode = "True"
   }

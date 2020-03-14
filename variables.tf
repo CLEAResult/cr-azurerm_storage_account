@@ -66,9 +66,9 @@ variable "tenant_id" {
   description = "Prompt for tenant ID"
 }
 
-variable "use_msi" {
+variable "create_msi" {
   type        = bool
-  description = "Use Managed Service Identity (MSI)?"
+  description = "Create Managed Service Identity (MSI)?"
   default     = false
 }
 

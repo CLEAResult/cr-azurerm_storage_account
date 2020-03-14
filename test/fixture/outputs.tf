@@ -46,14 +46,6 @@ output "access_tier" {
   value = module.storage.*.access_tier
 }
 
-output "enable_blob_encryption" {
-  value = module.storage.*.enable_blob_encryption
-}
-
-output "enable_file_encryption" {
-  value = module.storage.*.enable_file_encryption
-}
-
 output "enable_https_traffic_only" {
   value = module.storage.*.enable_https_traffic_only
 }
@@ -96,5 +88,37 @@ output "primary_web_endpoint" {
 
 output "primary_web_host" {
   value = module.storage.*.primary_web_host
+}
+
+output "primary_access_key" {
+  value = module.storage.*.primary_access_key
+}
+
+output "secondary_access_key" {
+  value = module.storage.*.secondary_access_key
+}
+
+output "primary_connection_string" {
+  value = module.storage.*.primary_connection_string
+}
+
+output "secondary_connection_string" {
+  value = module.storage.*.secondary_connection_string
+}
+
+output "primary_blob_connection_string" {
+  value = module.storage.*.primary_blob_connection_string
+}
+
+output "secondary_blob_connection_string" {
+  value = module.storage.*.secondary_blob_connection_string
+}
+
+output "msi_principal_id" {
+  value = module.storage.*.msi_principal_id
+}
+
+output "msi_tenant_id" {
+  value = module.storage.*.msi_tenant_id
 }
 
