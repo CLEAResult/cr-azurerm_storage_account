@@ -46,14 +46,6 @@ output "access_tier" {
   value = azurerm_storage_account.storageaccount.*.access_tier
 }
 
-output "enable_blob_encryption" {
-  value = azurerm_storage_account.storageaccount.*.enable_blob_encryption
-}
-
-output "enable_file_encryption" {
-  value = azurerm_storage_account.storageaccount.*.enable_file_encryption
-}
-
 output "enable_https_traffic_only" {
   value = azurerm_storage_account.storageaccount.*.enable_https_traffic_only
 }
