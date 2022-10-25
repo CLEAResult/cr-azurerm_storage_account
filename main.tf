@@ -21,27 +21,27 @@ resource "azurerm_storage_account" "storageaccount" {
   }
 }
 
-resource "azuread_group" "StorageAccountKeyOperatorServiceRole" {
-  name = format("g%s%s%s_AZ_StorageAccountKeyOperatorServiceRole", local.default_rgid, local.env_id, local.rg_type)
-}
+# resource "azuread_group" "StorageAccountKeyOperatorServiceRole" {
+#   name = format("g%s%s%s_AZ_StorageAccountKeyOperatorServiceRole", local.default_rgid, local.env_id, local.rg_type)
+# }
 
-resource "azuread_group" "StorageBlobDataContributor" {
-  name = format("g%s%s%s_AZ_StorageBlobDataContributor", local.default_rgid, local.env_id, local.rg_type)
-}
+# resource "azuread_group" "StorageBlobDataContributor" {
+#   name = format("g%s%s%s_AZ_StorageBlobDataContributor", local.default_rgid, local.env_id, local.rg_type)
+# }
 
 data "azurerm_subscription" "primary" {
   subscription_id = var.subscription_id
 }
 
-resource "azurerm_role_assignment" "StorageAccountKeyOperatorServiceRole" {
-  scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
-  role_definition_name = "Storage Account Key Operator Service Role"
-  principal_id         = azuread_group.StorageAccountKeyOperatorServiceRole.id
-}
+# resource "azurerm_role_assignment" "StorageAccountKeyOperatorServiceRole" {
+#   scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
+#   role_definition_name = "Storage Account Key Operator Service Role"
+#   principal_id         = azuread_group.StorageAccountKeyOperatorServiceRole.id
+# }
 
-resource "azurerm_role_assignment" "StorageBlobDataContributor" {
-  scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azuread_group.StorageBlobDataContributor.id
-}
+# resource "azurerm_role_assignment" "StorageBlobDataContributor" {
+#   scope                = format("%s/resourceGroups/%s", data.azurerm_subscription.primary.id, var.rg_name)
+#   role_definition_name = "Storage Blob Data Contributor"
+#   principal_id         = azuread_group.StorageBlobDataContributor.id
+# }
 
