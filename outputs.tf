@@ -14,21 +14,21 @@ output "secondary_location" {
   value = azurerm_storage_account.storageaccount.*.secondary_location
 }
 
-output "StorageBlobDataContributorId" {
-  value = azuread_group.StorageBlobDataContributor.id
-}
+# output "StorageBlobDataContributorId" {
+#   value = azuread_group.StorageBlobDataContributor.id
+# }
 
-output "StorageAccountKeyOperatorServiceRoleId" {
-  value = azuread_group.StorageAccountKeyOperatorServiceRole.id
-}
+# output "StorageAccountKeyOperatorServiceRoleId" {
+#   value = azuread_group.StorageAccountKeyOperatorServiceRole.id
+# }
 
-output "StorageBlobDataContributorName" {
-  value = azuread_group.StorageBlobDataContributor.name
-}
+# output "StorageBlobDataContributorName" {
+#   value = azuread_group.StorageBlobDataContributor.name
+# }
 
-output "StorageAccountKeyOperatorServiceRoleName" {
-  value = azuread_group.StorageAccountKeyOperatorServiceRole.name
-}
+# output "StorageAccountKeyOperatorServiceRoleName" {
+#   value = azuread_group.StorageAccountKeyOperatorServiceRole.name
+# }
 
 output "account_kind" {
   value = azurerm_storage_account.storageaccount.*.account_kind
