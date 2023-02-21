@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storageaccount" {
-  name                      = format("%s%03d", local.name, count.index + 1)
+  name                      = var.name_override != "" ? var.name_override : format("%s%03d%s", local.name, count.index + 1, var.name_suffix)
   count                     = var.num
   resource_group_name       = var.rg_name
   location                  = var.location
